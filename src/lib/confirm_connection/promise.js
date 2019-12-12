@@ -3,6 +3,7 @@ const https = require('https');
 const Datastore = require('nedb');
 const nedb = new Datastore();
 const axios = require('axios');
+
 /**
  *
  * @param {JSON} document
@@ -17,7 +18,10 @@ const nedbInsert = document => {
     });
   });
 };
-
+/**
+ * delete record
+ * @param {String} slackid
+ */
 const nedbDelete = slackid => {
   return new Promise((resolve, reject) => {
     nedb.remove({ slackid }, err => {
@@ -29,7 +33,7 @@ const nedbDelete = slackid => {
 };
 
 /**
- *
+ * find record
  * @param {JSON} query
  */
 const nedbFindOne = query => {
@@ -87,6 +91,11 @@ const getTokenInParentheses = (atcoderAffiliation) => {
   }
 };
 
+/**
+ * request for max rating
+ * @param {String} atcoderUsername
+ */
+
 const getMaxRating = (atcoderUsername) => {
   return axios.get(`https://atcoder.jp/users/${atcoderUsername}/history/json`)
     .then(res => {
@@ -95,8 +104,23 @@ const getMaxRating = (atcoderUsername) => {
     }).catch(err => console.log(err));
 };
 
+/**
+ * request for vc, batch from cluster api
+ * @param {String} slackid
+ */
+
 const getCluster = (slackid) => {
-  return ['C4K', 6];
+  return axios.get(`https://temp-scm.glitch.me/student/${slackid}`)
+    .then(res => [res.data.virtual_company, res.data.batch])
+    .catch(err => console.log(err));
+};
+
+const getVcMemberLen = (vcName) => {
+  return axios.get(`https://temp-scm.glitch.me/virtual_company/${vcName}`)
+    .then(res => {
+      const mem = res.data.members;
+      return mem ? mem.length : 0;
+    });
 };
 
 module.exports = {
@@ -105,5 +129,6 @@ module.exports = {
   getTokenFromAffiliation,
   nedbDelete,
   getMaxRating,
-  getCluster
+  getCluster,
+  getVcMemberLen
 };
