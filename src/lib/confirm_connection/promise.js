@@ -87,17 +87,16 @@ const getTokenInParentheses = (atcoderAffiliation) => {
   }
 };
 
-const getRating = (atcoderUsername) => {
+const getMaxRating = (atcoderUsername) => {
   return axios.get(`https://atcoder.jp/users/${atcoderUsername}/history/json`)
     .then(res => {
       const history = res.data.map(x => x.NewRating);
       return history.length > 0 ? Math.max(history) : 0;
-      // ? history.sort((a, b) => a.NewRating - b.NewRating)[0].NewRating : 0;
     }).catch(err => console.log(err));
 };
 
 const getCluster = (slackid) => {
-  return { vc_name: 'C4K', batch: 6 };
+  return ['C4K', 6];
 };
 
 module.exports = {
@@ -105,6 +104,6 @@ module.exports = {
   nedbFindOne,
   getTokenFromAffiliation,
   nedbDelete,
-  getRating,
+  getMaxRating,
   getCluster
 };

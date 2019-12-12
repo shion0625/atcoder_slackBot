@@ -9,8 +9,10 @@ class SheetsOperation {
 
   insertVCValue (value) {
     const len = value.length;
-    value[0].push({ formula: '=ARRAYFORMULA(%1:%2/%3:%4 * 100)', cells: [{ row: 2, col: 6 }, { row: len + 1, col: 6 }, { row: 2, col: 5 }, { row: len + 1, col: 5 }] });
-    this.vcAvgValue = this.vcAvgValue.concat(value);
+    if (len > 0) {
+      value[0].push({ formula: '=ARRAYFORMULA(%1:%2/%3:%4 * 100)', cells: [{ row: 2, col: 6 }, { row: len + 1, col: 6 }, { row: 2, col: 5 }, { row: len + 1, col: 5 }] });
+      this.vcAvgValue = this.vcAvgValue.concat(value);
+    }
   }
 
   insertStudentValue (value) {
