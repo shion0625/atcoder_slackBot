@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "C4K",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./src",
+    "lint": "semistandard",
+    "commit": "git cz",
+    "readme": "npx readme-md-generator",
+    "fix": "semistandard --fix"
+  },
+  "dependencies": {
+    "@slack/rtm-api": "^5.0.3",
+    "@slack/web-api": "^5.6.0",
+    "array-to-google-sheets": "^1.1.6",
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "cron": "^1.7.2",
+    "dotenv": "^8.2.0",
+    "nedb": "^1.8.0",
+    "sequelize": "^5.21.2",
+    "sequelize-cli": "^5.5.1",
+    "short-uuid": "^3.1.1",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "commitizen": "^4.0.3",
+    "cz-emoji": "^1.1.2",
+    "semistandard": "^14.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-emoji"
+    }
+  }
+}
