@@ -3,7 +3,7 @@ require('dotenv').config();
 const SheetOperation = require('./lib/SheetOperation');
 const DBOperation = require('./lib/DBOperation');
 const { RTMClient } = require('@slack/rtm-api');
-const { Handler } = require('./lib/confirm_connection/Handler');
+const { Handler } = require('./lib/confirm_connection/handler');
 const CronJob = require('cron').CronJob;
 const { getMaxRating, getVcMemberLen } = require('./lib/confirm_connection/promise');
 const delay = require('delay');
