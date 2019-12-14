@@ -15,7 +15,9 @@ const main = async () => {
   const DOP = new DBOperation(process.env.DBPath);
   const Students = await DOP.StudentsInit();
 
-  const handler = new Handler(SLACKBOT_TOKEN, Students);
+  const cluster = process.env.CLUSTER_LINK;
+  const icon = process.env.SLACKBOT_ICON;
+  const handler = new Handler(SLACKBOT_TOKEN, Students, icon, cluster);
 
   rtm.on('message', event => {
     if (!('text' in event)) {
@@ -93,7 +95,7 @@ const main = async () => {
       const lowest = Math.min(ratings);
       const highest = Math.max(ratings);
       const avg = ratings.reduce((a, b) => a + b) / atcoderMembers;
-      const vcMemberLen = await getVcMemberLen(name);
+      const vcMemberLen = await getVcMemberLen(name, cluster);
       return [name, avg, lowest, highest, vcMemberLen, atcoderMembers];
     });
 
@@ -113,8 +115,8 @@ const main = async () => {
   /**
    * schedule cronjob
    */
-  const job = new CronJob(process.env.SCHEDULE, () => {
-    updateDB();
+  const job = new CronJob(process.env.SCHEDULE, async () => {
+    await updateDB();
     atcoderSheet();
   });
   job.start();

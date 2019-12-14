@@ -10,10 +10,11 @@ const {
 } = require('./promise');
 
 class Handler {
-  constructor (slackToken, Students, icon) {
+  constructor (slackToken, Students, icon, cluster) {
     this.webClient = new WebClient(slackToken);
     this.Students = Students;
     this.icon = icon;
+    this.cluster = cluster;
   }
 
   async connectHandler (event) {
@@ -55,7 +56,7 @@ class Handler {
     }
     const atcoderUsername = confirmingUser.atcoder_username;
     const token = await getTokenFromAffiliation(atcoderUsername);
-    const [vcName, batch] = await getCluster();
+    const [vcName, batch] = await getCluster(slackId, this.cluster);
     const rating = await getMaxRating(atcoderUsername);
     if (token === confirmingUser.token) {
       this.sendMessage('Succesful connection', slackChannel, thread);
@@ -142,7 +143,7 @@ class Handler {
     this.webClient.chat.postMessage({
       text: message,
       channel,
-      icon_emoji: ':heart:',
+      icon_emoji: `:${this.icon}:`,
       thread_ts: thread
     }).catch(err => console.log(err));
   }

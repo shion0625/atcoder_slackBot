@@ -109,14 +109,14 @@ const getMaxRating = (atcoderUsername) => {
  * @param {String} slackid
  */
 
-const getCluster = (slackid) => {
-  return axios.get(`https://temp-scm.glitch.me/student/${slackid}`)
+const getCluster = (slackid, cluster) => {
+  return axios.get(`${cluster}/student/${slackid}`)
     .then(res => [res.data.virtual_company, res.data.batch])
     .catch(err => console.log(err));
 };
 
-const getVcMemberLen = (vcName) => {
-  return axios.get(`https://temp-scm.glitch.me/virtual_company/${vcName}`)
+const getVcMemberLen = (vcName, cluster) => {
+  return axios.get(`${cluster}/virtual_company/${vcName}`)
     .then(res => {
       const mem = res.data.members;
       return mem ? mem.length : 0;

@@ -3,7 +3,7 @@ const { ArrayToGoogleSheets } = require('array-to-google-sheets');
 class SheetsOperation {
   constructor (dockey, creds) {
     this.sop = new ArrayToGoogleSheets(dockey, creds);
-    this.vcAvgValue = [['VC name', 'Average rating', 'Min rating', 'Max rating', 'vc members', 'vc atcoder members', 'atcoder user %']];
+    this.vcAvgValue = [['VC name', 'Average rating', 'Lowest rating', 'Highest rating', 'vc members', 'vc atcoder members', 'atcoder user %']];
     this.studentRating = [['Slack-Username', 'atcoder-profile', 'Email', 'Batch', 'Virtual-Company', 'Rating']];
   }
 
