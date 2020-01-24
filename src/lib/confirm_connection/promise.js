@@ -100,7 +100,7 @@ const getMaxRating = (atcoderUsername) => {
   return axios.get(`https://atcoder.jp/users/${atcoderUsername}/history/json`)
     .then(res => {
       const history = res.data.map(x => x.NewRating);
-      return history.length > 0 ? Math.max(history) : 0;
+      return history.length > 0 ? Math.max(...history) : 0;
     }).catch(err => console.log(err));
 };
 

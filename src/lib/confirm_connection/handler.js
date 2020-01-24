@@ -132,8 +132,8 @@ class Handler {
     for (const student of students) {
       if (student.rating > highestRate) {
         highestRate = student.rating;
-        averageRate += student.rating;
       }
+      averageRate += student.rating;
     }
     averageRate = (averageRate / students.length).toFixed(2);
     return { averageRate, highestRate };
